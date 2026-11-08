@@ -50,7 +50,7 @@ git status                                     # Shows change still staged (not 
 git commit -m "Re-apply temporary change after undo demo"   # Re-commit to keep change
 
 --- STEP 5: GitHub Integration ---
-git remote add origin https://github.com/<your-username>/git-assignment.git  # Link to GitHub
+git remote add origin https://github.com/2023eb03018/SDP-Assignment # Link to GitHub
 git remote -v                                  # Verify remote URL
 git branch -M main                             # Ensure branch is main
 git push -u origin main                        # Push full history, set upstream
