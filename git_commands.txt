@@ -1,0 +1,58 @@
+GIT COMMANDS USED IN THIS ASSIGNMENT
+====================================
+
+--- STEP 1: Local Repository Setup ---
+cd ~                         # Move to home directory (writable location)
+mkdir git-assignment         # Create project folder
+cd git-assignment            # Enter project folder
+echo "<h1>Home Page</h1>" > index.html     # Create index.html (> overwrites/creates)
+echo "<h1>About Page</h1>" > about.html    # Create about.html
+ls                           # List files to verify
+git init                     # Initialize local Git repository
+git status                   # Show repo state (untracked files, branch)
+git branch -M main           # Rename default branch master -> main
+
+--- STEP 2: Git Workflow Execution ---
+git add index.html about.html              # Stage files for commit
+git commit -m "Initial commit: add index.html and about.html"   # Commit #1 (initial state)
+echo "<p>Git Workflow Execution</p>" >> index.html  # Modify file (>> appends)
+cat index.html                             # Verify file content
+git add index.html                         # Stage the modification
+git commit -m "Update index.html with Git Workflow Execution"   # Commit #2
+git branch feature                         # Create new branch 'feature'
+git checkout feature                       # Switch to feature branch
+git branch                                 # List branches, show current (*)
+echo "<p>Contact: info@example.com</p>" >> about.html   # Modify file on feature
+git add about.html                         # Stage it
+git commit -m "Add contact info to about.html (feature branch)"  # Commit #3 on feature
+git checkout main                          # Switch back to main
+git merge feature                          # Merge feature into main (merge commit)
+git log --oneline --graph --all --decorate # Display full history with branches/merge
+
+--- STEP 3: .gitignore Implementation ---
+printf "*.log\ntemp/\n" > .gitignore       # Create .gitignore ignoring *.log and temp/
+cat .gitignore                             # Show ignore rules
+echo "debug info" > app.log                # Create a .log file (should be ignored)
+mkdir temp                                 # Create temp folder (should be ignored)
+echo "scratch" > temp/scratch.txt          # File inside temp/
+git status                                 # Verify app.log and temp/ are ignored
+git add .gitignore                         # Stage .gitignore
+git commit -m "Add .gitignore to ignore *.log and temp/"   # Commit #4
+
+--- STEP 4: Undo Operation ---
+echo "<p>Temporary change</p>" >> index.html   # Modify file for temp commit
+git add index.html                             # Stage it
+git commit -m "Temporary commit to be undone"  # Commit #5 (to be undone)
+git log --oneline                              # History BEFORE undo
+git reset --soft HEAD~1                        # Undo last commit, keep changes staged
+git log --oneline                              # History AFTER undo (commit gone)
+git status                                     # Shows change still staged (not lost)
+git commit -m "Re-apply temporary change after undo demo"   # Re-commit to keep change
+
+--- STEP 5: GitHub Integration ---
+git remote add origin https://github.com/<your-username>/git-assignment.git  # Link to GitHub
+git remote -v                                  # Verify remote URL
+git branch -M main                             # Ensure branch is main
+git push -u origin main                        # Push full history, set upstream
+git log --oneline --graph --all                # Final history check
+git status                                     # Confirm up to date with origin/main
